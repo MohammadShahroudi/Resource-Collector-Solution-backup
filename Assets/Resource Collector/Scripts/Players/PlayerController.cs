@@ -97,6 +97,7 @@ public class PlayerController : NetworkBehaviour
         direction.Normalize();
 
         NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, position: transform.position);
+        Debug.Log(axePrefab.gameObject.name);
         
         axe.Launch(direction, throwImpulse, _characterController);
         _axeState = AxeState.Away;
