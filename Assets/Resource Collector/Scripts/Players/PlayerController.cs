@@ -96,7 +96,7 @@ public class PlayerController : NetworkBehaviour
         direction.y = 0f;
         direction.Normalize();
 
-        // NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, position: transform.position);
+        NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, position: transform.position);
         
         axe.Launch(direction, throwImpulse, _characterController);
         _axeState = AxeState.Away;
@@ -128,6 +128,7 @@ public class PlayerController : NetworkBehaviour
 
         axe.AttachToHand();
         _axeState = AxeState.Held;
+        Debug.Log("Axe returned");
     }
     
     void UpdateAimVisual()
