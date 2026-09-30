@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using UnityEngine.UIElements;
 
 /*
  * PlayerController is the owner's local input loop: movement, target
@@ -11,6 +14,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : NetworkBehaviour
 {
+    static readonly int Speed = Animator.StringToHash("Speed");
+    static readonly int ThrowHash = Animator.StringToHash("Throw");
+    
+    [Header("References")]
+    public ThrownAxe axe;
+    
     [Header("Components")]
     [SerializeField] CharacterController _characterController;
     [SerializeField] Animator _animator;
@@ -25,12 +34,30 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] float _movementSpeed = 4f;
     [SerializeField] float _rotationSpeed = 200f;
 
+    [Header("Axe")]
+    public float throwImpulse = 25f;
+    public float returnDuration = 1f;
+    public float bowAmount = 0.5f;
+
+    enum AxeState { Held, Throwing, Away, Returning }
+    
     Interactable _closestTarget;
     Vector2 _smoothedInput;
+    
+    AxeState _axeState = AxeState.Held;
+    LineRenderer _lineRenderer;
 
+    private void Awake()
+    {
+        _lineRenderer = GetComponent<LineRenderer>();
+    }
+    
     void Update()
     {
         if (!IsOwner) return;
+        
+        UpdateAxeInput();
+        UpdateAimVisual();
 
         Vector2 movementInput = ReadMovementInput();
         _smoothedInput = Vector2.MoveTowards(_smoothedInput, movementInput, Time.deltaTime * 10f);
@@ -44,10 +71,105 @@ public class PlayerController : NetworkBehaviour
 
         UpdateInteractionTarget();
 
-        if (Keyboard.current.eKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame)
+        if (Keyboard.current.eKey.wasPressedThisFrame /*|| Mouse.current.leftButton.wasPressedThisFrame*/)
             HandleInteractionPressed();
     }
+    
+    void UpdateAxeInput()
+    {
+        if (_axeState == AxeState.Held && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            _axeState = AxeState.Throwing;
+            _animator.SetTrigger(ThrowHash);
+        }
 
+        if (_axeState == AxeState.Away && Mouse.current.rightButton.wasPressedThisFrame)
+            StartCoroutine(ReturnAxe());
+    }
+    
+    public void LaunchAxe()
+    {
+        Debug.Log("Launching axe");
+        if (_axeState != AxeState.Throwing) return;
+
+        Vector3 direction = transform.forward;
+        direction.y = 0f;
+        direction.Normalize();
+
+        // NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, position: transform.position);
+        
+        axe.Launch(direction, throwImpulse, _characterController);
+        _axeState = AxeState.Away;
+    }
+    
+    IEnumerator ReturnAxe()
+    {
+        _axeState = AxeState.Returning;
+        axe.rigidbody.isKinematic = true;
+        axe.axeCollider.enabled = false;
+        
+        Vector3 start = axe.transform.position;
+        
+        float elapsedTime = 0f;
+        while (elapsedTime < returnDuration)
+        {
+            float t = elapsedTime / returnDuration;
+            
+            Vector3 p0 = start;
+            Vector3 p2 = axe.CatchPosition;
+            Vector3 p1 = (p0 + p2) * 0.5f + transform.right * bowAmount;
+                
+            axe.transform.position = QuadraticBezierMath.SamplePointBernstein(p0, p1, p2, t);
+            axe.transform.Rotate(Vector3.forward, axe.spinSpeed * Time.deltaTime, Space.Self);
+            
+            yield return null;
+            elapsedTime += Time.deltaTime;
+        }
+
+        axe.AttachToHand();
+        _axeState = AxeState.Held;
+    }
+    
+    void UpdateAimVisual()
+    {
+        switch (_axeState)
+        {
+            case AxeState.Held:
+                DrawAimLine();
+                break;
+            case AxeState.Away:
+                DrawReturnPath();
+                break;
+            default:
+                _lineRenderer.positionCount = 0;
+                break;
+        }
+    }
+    
+    void DrawAimLine()
+    {
+        if (Physics.Raycast(axe.transform.position, transform.forward, out RaycastHit hit))
+        {
+            _lineRenderer.positionCount = 2;
+            _lineRenderer.SetPosition(0, axe.transform.position);
+            _lineRenderer.SetPosition(1, hit.point);
+        }
+        else
+        {
+            _lineRenderer.positionCount = 0;
+        }
+    }
+
+    void DrawReturnPath()
+    {
+        // TODO Slice 5.2: draw the curve from GetReturnControlPoints with ten samples,
+        // evenly spaced in t, from the axe to the hand. Recall (5.4) reuses the same curve.
+        // Check: throw. While Away, the preview bows from the axe to the hand.
+        // Changing bowAmount changes the bow.
+        // Next: Slice 5.3 in ReturnAxe.
+        _lineRenderer.positionCount = 0;
+    }
+    
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();

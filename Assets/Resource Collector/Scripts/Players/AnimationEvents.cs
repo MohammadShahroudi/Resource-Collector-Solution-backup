@@ -10,7 +10,13 @@ using UnityEngine.Events;
 public class AnimationEvents : MonoBehaviour
 {
     public UnityEvent OnStep;
-
+    public PlayerController playerController;
+    
+    public void ThrowAction()
+    {
+        playerController.LaunchAxe();
+    }
+    
     public void ChopAction() { }
 
     public void AnimationDone() { }
