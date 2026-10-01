@@ -96,8 +96,12 @@ public class PlayerController : NetworkBehaviour
         direction.y = 0f;
         direction.Normalize();
 
-        NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, position: transform.position);
+        NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, 
+            position: transform.position,  rotation: transform.rotation);
         Debug.Log(axePrefab.gameObject.name);
+        
+        //NetworkObject.InstantiateAndSpawn(_producedPrefab.gameObject, NetworkManager,
+            // position: dropPosition, rotation: Quaternion.Euler(0f, Random.Range(0, 360), 0f));
         
         axe.Launch(direction, throwImpulse, _characterController);
         _axeState = AxeState.Away;
@@ -178,6 +182,10 @@ public class PlayerController : NetworkBehaviour
 
         if (IsOwner)
             Camera.main.GetComponent<FollowCamera>().Target = transform;
+        
+        UpdateAxeInput();
+        // LaunchAxe();
+        // ReturnAxe();
     }
 
     public override void OnNetworkDespawn()
