@@ -14,6 +14,7 @@ using UnityEngine.UIElements;
 
 public class PlayerController : NetworkBehaviour
 {
+    [SerializeField] AudioClip _audioClip;
     static readonly int Speed = Animator.StringToHash("Speed");
     static readonly int ThrowHash = Animator.StringToHash("Throw");
     
@@ -82,6 +83,7 @@ public class PlayerController : NetworkBehaviour
             // LaunchAxe();
             _axeState = AxeState.Throwing;
             _animator.SetTrigger(ThrowHash);
+            AudioSource.PlayClipAtPoint(_audioClip, transform.position);
         }
         
         if (_axeState == AxeState.Away && Mouse.current.rightButton.wasPressedThisFrame)
@@ -109,6 +111,7 @@ public class PlayerController : NetworkBehaviour
     IEnumerator ReturnAxe()
     {
         _axeState = AxeState.Returning;
+        AudioSource.PlayClipAtPoint(_audioClip, transform.position);
         axe.rigidbody.isKinematic = true;
         axe.axeCollider.enabled = false;
         
@@ -129,7 +132,7 @@ public class PlayerController : NetworkBehaviour
             yield return null;
             elapsedTime += Time.deltaTime;
         }
-
+        
         axe.AttachToHand();
         _axeState = AxeState.Held;
         Debug.Log("Axe returned!");

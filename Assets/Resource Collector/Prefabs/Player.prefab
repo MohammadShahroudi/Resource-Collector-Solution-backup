@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   ShowTopMostFoldoutHeaderGroup: 1
+  _audioClip: {fileID: 8300000, guid: a58f901ff83ff4a85aea3a19d2a32895, type: 3}
   axe: {fileID: 4527237766885767806}
   _characterController: {fileID: 4841560274559653093}
   _animator: {fileID: 637217615066948756}
