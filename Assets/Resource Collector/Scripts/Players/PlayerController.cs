@@ -100,9 +100,6 @@ public class PlayerController : NetworkBehaviour
             position: transform.position,  rotation: transform.rotation);
         Debug.Log(axePrefab.gameObject.name);
         
-        //NetworkObject.InstantiateAndSpawn(_producedPrefab.gameObject, NetworkManager,
-            // position: dropPosition, rotation: Quaternion.Euler(0f, Random.Range(0, 360), 0f));
-        
         axe.Launch(direction, throwImpulse, _characterController);
         _axeState = AxeState.Away;
     }
