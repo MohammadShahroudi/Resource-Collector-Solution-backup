@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2402111284
+  GlobalObjectIdHash: 4229884011
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   ShowTopMostFoldoutHeaderGroup: 1
-  axe: {fileID: 4527237766885767806}
+  axe: {fileID: -6484519706416139898, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
   _characterController: {fileID: 4841560274559653093}
   _animator: {fileID: 637217615066948756}
   _heldItem: {fileID: 330018501001}
@@ -1184,7 +1184,6 @@ Transform:
   - {fileID: 5790875462867126753}
   - {fileID: 3198261658288423369}
   - {fileID: 1351401235758572010}
-  - {fileID: 8371863252709491052}
   m_Father: {fileID: 1786789122831410079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7232859167158745953
@@ -2292,107 +2291,4 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e3ee26d99f87a743952fac7c150345e, type: 3}
   m_PrefabInstance: {fileID: 7291344218050678530}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8451467743429052922
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7745727607755375033}
-    m_Modifications:
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.106
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2572868268265701587, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6175314477346837289, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_Name
-      value: ThrowAxe
-      objectReference: {fileID: 0}
-    - target: {fileID: 7823060221012554641, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6175314477346837289, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4527237766885767806}
-  m_SourcePrefab: {fileID: 100100000, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
---- !u!54 &1862435190252763755 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7823060221012554641, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-  m_PrefabInstance: {fileID: 8451467743429052922}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2376417284812380883 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6175314477346837289, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-  m_PrefabInstance: {fileID: 8451467743429052922}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4527237766885767806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2376417284812380883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 342a883a7a81449f68c683d9dec82d06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ThrownAxe
-  rigidbody: {fileID: 1862435190252763755}
-  axeCollider: {fileID: 6268182939802585385}
-  spinSpeed: 1000
---- !u!65 &6268182939802585385 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 2572868268265701587, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-  m_PrefabInstance: {fileID: 8451467743429052922}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8371863252709491052 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 101173105130965142, guid: 496a4596fae344fcc86e5ac08f621392, type: 3}
-  m_PrefabInstance: {fileID: 8451467743429052922}
   m_PrefabAsset: {fileID: 0}
