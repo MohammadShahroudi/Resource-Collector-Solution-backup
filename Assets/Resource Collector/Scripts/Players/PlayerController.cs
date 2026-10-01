@@ -55,9 +55,6 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-        
-        UpdateAxeInput();
-        UpdateAimVisual();
 
         Vector2 movementInput = ReadMovementInput();
         _smoothedInput = Vector2.MoveTowards(_smoothedInput, movementInput, Time.deltaTime * 10f);
@@ -73,12 +70,16 @@ public class PlayerController : NetworkBehaviour
 
         if (Keyboard.current.eKey.wasPressedThisFrame /*|| Mouse.current.leftButton.wasPressedThisFrame*/)
             HandleInteractionPressed();
+        
+        UpdateAxeInput();
+        UpdateAimVisual();
     }
     
     void UpdateAxeInput()
     {
         if (_axeState == AxeState.Held && Mouse.current.leftButton.wasPressedThisFrame)
         {
+            // LaunchAxe();
             _axeState = AxeState.Throwing;
             _animator.SetTrigger(ThrowHash);
         }
@@ -91,6 +92,7 @@ public class PlayerController : NetworkBehaviour
     
     public void LaunchAxe()
     {
+        // Debug.Log(_axeState == AxeState.Throwing);
         if (_axeState != AxeState.Throwing) return;
 
         Vector3 direction = transform.forward;
