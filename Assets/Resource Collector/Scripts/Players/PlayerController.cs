@@ -89,7 +89,6 @@ public class PlayerController : NetworkBehaviour
     
     public void LaunchAxe()
     {
-        Debug.Log("Launching axe");
         if (_axeState != AxeState.Throwing) return;
 
         Vector3 direction = transform.forward;
@@ -101,6 +100,7 @@ public class PlayerController : NetworkBehaviour
         Debug.Log(axePrefab.gameObject.name);
         
         axe.Launch(direction, throwImpulse, _characterController);
+        Debug.Log("Launching axe");
         _axeState = AxeState.Away;
     }
     

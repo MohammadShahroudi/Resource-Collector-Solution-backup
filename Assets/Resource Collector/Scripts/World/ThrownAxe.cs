@@ -43,6 +43,7 @@ public class ThrownAxe : MonoBehaviour
         transform.SetLocalPositionAndRotation(_heldLocalPosition, _heldLocalRotation);
         rigidbody.isKinematic = true;
         axeCollider.enabled = false;
+        // Debug.Log(_hand);
     }
 
     void OnCollisionEnter(Collision collision)
