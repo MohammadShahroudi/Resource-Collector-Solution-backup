@@ -82,14 +82,15 @@ public class PlayerController : NetworkBehaviour
             _axeState = AxeState.Throwing;
             _animator.SetTrigger(ThrowHash);
         }
-
+        
         if (_axeState == AxeState.Away && Mouse.current.rightButton.wasPressedThisFrame)
             StartCoroutine(ReturnAxe());
+        
+        // Debug.Log(_axeState);
     }
     
     public void LaunchAxe()
     {
-        Debug.Log("Launching axe");
         if (_axeState != AxeState.Throwing) return;
 
         Vector3 direction = transform.forward;
@@ -99,6 +100,7 @@ public class PlayerController : NetworkBehaviour
         // NetworkObject axePrefab = NetworkObject.InstantiateAndSpawn(axe.gameObject, NetworkManager, position: transform.position);
         
         axe.Launch(direction, throwImpulse, _characterController);
+        Debug.Log("Launching axe!");
         _axeState = AxeState.Away;
     }
     
@@ -128,6 +130,7 @@ public class PlayerController : NetworkBehaviour
 
         axe.AttachToHand();
         _axeState = AxeState.Held;
+        Debug.Log("Axe returned!");
     }
     
     void UpdateAimVisual()
